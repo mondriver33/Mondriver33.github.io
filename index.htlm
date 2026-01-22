@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Devis MONDRIVER</title>
+
+<style>
+body {
+    background: #000;
+    color: #fff;
+    font-family: Arial;
+    padding: 20px;
+}
+
+input, select {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+button {
+    padding: 12px;
+    width: 100%;
+    background: #1ebe5d;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+<h2>Devis de transfert MONDRIVER</h2>
+
+<label>Adresse de départ :</label>
+<input type="text" id="depart">
+
+<label>Adresse d'arrivée :</label>
+<input type="text" id="arrivee">
+
+<label>Date :</label>
+<input type="date" id="date">
+
+<label>Heure :</label>
+<input type="time" id="heure">
+
+<label>Personnes :</label>
+<select id="personnes">
+<option>1</option><option>2</option><option>3</option><option>4</option>
+<option>5</option><option>6</option><option>7</option><option>8</option>
+</select>
+
+<label>Bagages :</label>
+<select id="bagages">
+<option>0</option><option>1</option><option>2</option><option>3</option><option>4</option>
+</select>
+
+<label>Siège enfant :</label>
+<select id="siege">
+<option>0</option><option>1</option><option>2</option>
+</select>
+
+<label>Animal :</label>
+<select id="animal">
+<option>0</option><option>1</option>
+</select>
+
+<label>Véhicule :</label>
+<select id="vehicule">
+<option value="berline">Berline</option>
+<option value="gros">Berline 6 places / gros bagages</option>
+<option value="van">Van</option>
+</select>
+
+<button onclick="envoyerWhatsApp()">Envoyer sur WhatsApp</button>
+
+<script>
+function envoyerWhatsApp() {
+
+    let msg = `
+🚗 Nouvelle demande MONDRIVER
+
+Départ : ${depart.value}
+Arrivée : ${arrivee.value}
+Date : ${date.value}
+Heure : ${heure.value}
+Personnes : ${personnes.value}
+Bagages : ${bagages.value}
+Siège enfant : ${siege.value}
+Animal : ${animal.value}
+Véhicule : ${vehicule.value}
+
+Demande envoyée.
+`;
+
+    window.open("https://wa.me/33750572722?text=" + encodeURIComponent(msg));
+}
+</script>
+
+</body>
+</html>
