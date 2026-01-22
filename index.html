@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>MONDRIVER - Devis & Réservation</title>
+
+<style>
+    body {
+        background: #000;
+        color: #fff;
+        font-family: "Arial";
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+
+    /* — TITRE MONDRIVER — */
+    #hero {
+        padding: 40px 20px;
+    }
+
+    #hero h1 {
+        font-size: 60px;
+        letter-spacing: 4px;
+        font-weight: 900;
+        color: white;
+        margin: 0;
+    }
+
+    /* — FORMULAIRE — */
+    .form-container {
+        width: 90%;
+        max-width: 430px;
+        margin: 30px auto;
+        text-align: left;
+        background: #111;
+        padding: 25px;
+        border-radius: 12px;
+        border: 1px solid #333;
+    }
+
+    label {
+        font-size: 18px;
+        margin-top: 12px;
+        font-weight: bold;
+        display: block;
+        color: #ccc;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        background: #222;
+        border: 1px solid #444;
+        color: white;
+        font-size: 16px;
+    }
+
+    #price-box {
+        margin-top: 20px;
+        padding: 15px;
+        background: #222;
+        border-radius: 10px;
+        font-size: 22px;
+        display: none;
+        text-align: center;
+    }
+
+    #price-box span {
+        color: #00aaff;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    /* — GROS bouton réserver — */
+    #btn-reserver {
+        width: 100%;
+        padding: 15px;
+        margin-top: 20px;
+        background: #00aaff;
+        color: white;
+        font-size: 22px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    /* — BOUTON APPEL (plus petit) — */
+    #appel {
+        width: 90%;
+        max-width: 420px;
+        margin: 20px auto;
+        padding: 14px;
+        background: #25D366;
+        color: white;
+        font-size: 18px;
+        border-radius: 10px;
+        font-weight: bold;
+        text-decoration: none;
+        display: block;
+    }
+
+    /* — BOUTON CONTACT (plus petit aussi) — */
+    #contact {
+        width: 90%;
+        max-width: 420px;
+        margin: 8px auto 40px auto;
+        padding: 13px;
+        background: #444;
+        color: white;
+        font-size: 18px;
+        border-radius: 10px;
+        font-weight: bold;
+        text-decoration: none;
+        display: block;
+    }
+</style>
+
+<script>
+function calculPrix() {
+    let depart = document.getElementById("depart").value;
+    let arrivee = document.getElementById("arrivee").value;
+    let type = document.getElementById("type").value;
+
+    if (!depart || !arrivee) return;
+
+    // TARIFS
+    let tarifKm = 2;
+    let supplement = 0;
+
+    if (type === "6p") supplement = 10;
+    if (type === "van") supplement = 15;
+
+    let url = `https://api.distancematrix.ai/maps/api/distancematrix/json?origins=${encodeURIComponent(depart)}&destinations=${encodeURIComponent(arrivee)}&key=81a3e20b7a1f5`;
+
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            let dist = data.rows[0].elements[0].distance.value / 1000;
+            let prix = dist * tarifKm + supplement;
+
+            if (prix < 20) prix = 20;
+
+            document.getElementById("price-box").style.display = "block";
+            document.getElementById("distance").innerHTML = dist.toFixed(1);
+            document.getElementById("prix").innerHTML = prix.toFixed(2);
+        });
+}
+
+function envoyerCommande() {
+    let depart = document.getElementById("depart").value;
+    let arrivee = document.getElementById("arrivee").value;
+    let date = document.getElementById("date").value;
+    let heure = document.getElementById("heure").value;
+    let personnes = document.getElementById("personnes").value;
+    let bagages = document.getElementById("bagages").value;
+    let enfant = document.getElementById("enfant").value;
+    let animal = document.getElementById("animal").value;
+    let type = document.getElementById("type").value;
+
+    let dist = document.getElementById("distance").innerHTML;
+    let prix = document.getElementById("prix").innerHTML;
+
+    let typeVehicule = {
+        "berline": "Berline",
+        "6p": "Véhicule 6 places / gros bagages",
+        "van": "Van"
+    }[type];
+
+    let message = 
+`🚗 *Nouvelle réservation MONDRIVER*  
+📍 Départ : ${depart}
+🏁 Arrivée : ${arrivee}
+📆 Date : ${date}
+⏰ Heure : ${heure}
+👥 Personnes : ${personnes}
+🧳 Bagages : ${bagages}
+👶 Sièges enfants : ${enfant}
+🐾 Animaux : ${animal}
+🚘 Type de véhicule : ${typeVehicule}
+📏 Distance : ${dist} km
+💶 Prix estimé : ${prix} €`;
+
+    let wa = `https://wa.me/33750572722?text=${encodeURIComponent(message)}`;
+    window.open(wa, "_blank");
+
+    window.location.href = `mailto:mondriver33@gmail.com?subject=Nouvelle réservation&body=${encodeURIComponent(message)}`;
+}
+</script>
+
+</head>
+
+<body>
+
+<!-- TITRE -->
+<div id="hero">
+    <h1>MONDRIVER</h1>
+</div>
+
+<!-- FORMULAIRE -->
+<div class="form-container">
+
+    <label>Adresse de départ :</label>
+    <input type="text" id="depart" oninput="calculPrix()" placeholder="ex : 10 rue de Paris">
+
+    <label>Adresse d’arrivée :</label>
+    <input type="text" id="arrivee" oninput="calculPrix()" placeholder="ex : Gare St-Jean">
+
+    <label>Date :</label>
+    <input type="date" id="date">
+
+    <label>Heure :</label>
+    <input type="time" id="heure">
+
+    <label>Personnes :</label>
+    <select id="personnes">
+        <option>1</option><option>2</option><option>3</option><option>4</option>
+        <option>5</option><option>6</option><option>7</option><option>8</option>
+    </select>
+
+    <label>Bagages :</label>
+    <select id="bagages">
+        <option>0</option><option>1</option><option>2</option><option>3</option><option>4+</option>
+    </select>
+
+    <label>Sièges enfants :</label>
+    <select id="enfant">
+        <option>0</option><option>1</option><option>2</option>
+    </select>
+
+    <label>Animaux :</label>
+    <select id="animal">
+        <option>0</option><option>1</option>
+    </select>
+
+    <label>Type de véhicule :</label>
+    <select id="type" onchange="calculPrix()">
+        <option value="berline">Berline</option>
+        <option value="6p">Véhicule 6 places / gros bagages</option>
+        <option value="van">Van</option>
+    </select>
+
+    <div id="price-box">
+        Distance : <span id="distance"></span> km<br>
+        Prix estimé : <span id="prix"></span> €
+    </div>
+
+    <button id="btn-reserver" onclick="envoyerCommande()">LANCER MA RÉSERVATION</button>
+
+</div>
+
+<!-- APPEL CHAUFFEUR -->
+<a id="appel" href="tel:+33750572722">📞 APPELER UN CHAUFFEUR</a>
+
+<!-- CONTACT EMAIL -->
+<a id="contact" href="mailto:mondriver33@gmail.com">📧 NOUS CONTACTER</a>
+
+</body>
+</html>
