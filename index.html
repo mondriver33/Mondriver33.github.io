@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MONDRIVER</title>
+
+<style>
+body {
+    margin: 0;
+    background: #000;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: white;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 30px;
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: 5px;
+    color: #fff;
+    text-shadow: 0px 0px 12px rgba(255,255,255,0.25);
+}
+
+.container {
+    margin: 25px auto;
+    width: 92%;
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(255,255,255,0.08);
+}
+
+/* Style premium pour input + select */
+input, select {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.25);
+    font-size: 16px;
+    background: rgba(255,255,255,0.10);
+    color: white;
+}
+
+#prix {
+    font-size: 28px;
+    margin: 15px 0 20px 0;
+    display: none;
+    font-weight: bold;
+    text-shadow: 0 0 10px #0af;
+}
+
+/* Boutons */
+button {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-calcul {
+    background: #007bff;
+    color: white;
+    margin-bottom: 12px;
+}
+
+.btn-reserver {
+    background: #28a745;
+    color: white;
+}
+
+/* Bas de page */
+.bas {
+    width: 42%;
+    padding: 15px;
+    margin: 10px 2%;
+    border-radius: 8px;
+    background: #333;
+    color: white;
+    display: inline-block;
+    font-weight: bold;
+    text-decoration: none;
+}
+</style>
+
+<!-- GOOGLE AUTOCOMPLETE + DISTANCE -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPIaWMQd6o4K8miOzLAFUU8-s3wVOehpI&libraries=places"></script>
+</head>
+
+<body>
+
+<h1>MONDRIVER</h1>
+
+<div class="container">
+
+    <label>Adresse de départ :</label>
+    <input id="depart" placeholder="Adresse de départ">
+
+    <label>Adresse d'arrivée :</label>
+    <input id="arrivee" placeholder="Adresse d'arrivée">
+
+    <label>Date :</label>
+    <input type="date" id="date">
+
+    <label>Heure :</label>
+    <input type="time" id="heure">
+
+    <label>Personnes :</label>
+    <select id="personnes">
+        <option value="1" selected>1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+    </select>
+
+    <label>Choix du véhicule :</label>
+    <select id="vehicule">
+        <option value="berline">Berline</option>
+        <option value="suv">SUV</option>
+        <option value="van">Van</option>
+    </select>
+
+    <label>Bagages :</label>
+    <select id="bagages">
+        <option value="0" selected>0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+    </select>
+
+    <label>Sièges enfants :</label>
+    <select id="sieges">
+        <option value="0" selected>0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+    </select>
+
+    <label>Animaux :</label>
+    <select id="animaux">
+        <option value="non" selected>Non</option>
+        <option value="oui">Oui</option>
+    </select>
+
+    <label>Téléphone :</label>
+    <input id="tel" placeholder="+33 7 00 00 0000">
+
+    <label>Email :</label>
+    <input id="email" placeholder="email@example.com">
+
+    <div id="prix"></div>
+
+    <button class="btn-calcul" onclick="calculerPrix()">CALCULER LE PRIX</button>
+    <button class="btn-reserver">LANCER MA RÉSERVATION</button>
+</div>
+
+<div>
+    <a class="bas" href="tel:+33750572722">📞 APPELER UN CHAUFFEUR</a>
+    <a class="bas" href="mailto:mondriver33@gmail.com">📩 CONTACTEZ-NOUS</a>
+</div>
+
+<script>
+function initAutocomplete() {
+    new google.maps.places.Autocomplete(document.getElementById("depart"));
+    new google.maps.places.Autocomplete(document.getElementById("arrivee"));
+}
+google.maps.event.addDomListener(window, 'load', initAutocomplete);
+
+function calculerPrix() {
+
+    const depart = document.getElementById("depart").value;
+    const arrivee = document.getElementById("arrivee").value;
+
+    if (!depart || !arrivee) {
+        alert("Veuillez entrer les deux adresses.");
+        return;
+    }
+
+    const service = new google.maps.DistanceMatrixService();
+
+    service.getDistanceMatrix(
+    {
+        origins: [depart],
+        destinations: [arrivee],
+        travelMode: "DRIVING"
+    },
+    function(response, status) {
+        if (status !== "OK") {
+            alert("Erreur avec Google Distance !");
+            return;
+        }
+
+        let distance = response.rows[0].elements[0].distance.value / 1000;
+
+        let vehicule = document.getElementById("vehicule").value;
+        let prixKm = 2;
+        let supp = 0;
+
+        if (vehicule === "suv") supp = 10;
+        if (vehicule === "van") supp = 15;
+
+        let prix = distance * prixKm + supp;
+
+        if (prix < 20) prix = 20;
+
+        document.getElementById("prix").style.display = "block";
+        document.getElementById("prix").innerHTML =
+            "Prix estimé : " + prix.toFixed(2) + " €";
+    });
+}
+</script>
+
+</body>
+</html>
