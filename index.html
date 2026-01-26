@@ -6,421 +6,121 @@
 <title>MONDRIVER</title>
 
 <style>
-/* ======== STYLE PREMIUM MERCEDES / VTC LUXE ======== */
-body {
-    margin: 0;
-    background: #000;
-    font-family: "Poppins", Arial, sans-serif;
-    color: white;
-    text-align: center;
-}
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #fff;
+        text-align: center;
+    }
 
-h1 {
-    margin-top: 30px;
-    font-size: 48px;
-    font-weight: 800;
-    letter-spacing: 4px;
-    color: #fff;
-    text-shadow: 0px 0px 14px rgba(255,255,255,0.35);
-}
+    /* EN-TÊTE */
+    header {
+        background: #333;
+        color: white;
+        padding: 18px 0;
+        font-size: 26px;
+        letter-spacing: 2px;
+        font-weight: bold;
+    }
 
-/* Conteneur principal effet premium */
-.container {
-    margin: 25px auto;
-    width: 92%;
-    max-width: 520px;
-    padding: 24px;
-    border-radius: 18px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 0 25px rgba(255,255,255,0.10);
-}
+    /* IMAGE */
+    .image-container {
+        width: 100%;
+        height: 220px;
+        overflow: hidden;
+    }
 
-/* Champs premium */
-input, select {
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 14px;
-    border-radius: 12px;
-    border: none;
-    font-size: 16px;
-    background: rgba(255,255,255,0.15);
-    color: white;
-    outline: none;
-    transition: 0.25s;
-}
+    .image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-/* Effet survol */
-input:hover, select:hover {
-    background: rgba(255,255,255,0.25);
-}
+    /* BOUTONS */
+    .btn {
+        display: block;
+        width: 80%;
+        margin: 20px auto;
+        padding: 15px;
+        background: #444;
+        color: white;
+        border-radius: 10px;
+        font-size: 20px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
 
-/* Prix affiché */
-#prix {
-    font-size: 30px;
-    margin: 15px 0 20px 0;
-    display: none;
-    font-weight: bold;
-    text-shadow: 0 0 20px #00d9ff;
-}
+    .btn:hover {
+        transform: scale(1.05);
+        background: #666;
+    }
 
-/* Bouton bleu : calcul */
-.btn-calcul {
-    width: 100%;
-    padding: 16px;
-    border: none;
-    border-radius: 12px;
-    background: #007bff;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: 0.25s;
-}
-.btn-calcul:hover {
-    transform: scale(1.05);
-    background: #0a88ff;
-}
+    /* FORMULAIRE DE CONTACT */
+    form {
+        width: 80%;
+        margin: 25px auto;
+        text-align: left;
+    }
 
-/* Bouton vert : réservation */
-.btn-reserver {
-    width: 100%;
-    padding: 16px;
-    border: none;
-    border-radius: 12px;
-    background: #28a745;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.25s;
-}
-.btn-reserver:hover {
-    transform: scale(1.05);
-    background: #32c154;
-}
+    form input, form textarea {
+        width: 100%;
+        padding: 12px;
+        margin-top: 10px;
+        border: 1px solid #bbb;
+        border-radius: 8px;
+        font-size: 16px;
+    }
 
-/* Bas de page */
-.bas {
-    width: 44%;
-    padding: 14px;
-    margin: 10px 2%;
-    border-radius: 10px;
-    background: #333;
-    color: white;
-    display: inline-block;
-    font-weight: bold;
-    text-decoration: none;
-    transition: 0.25s;
-}
-.bas:hover {
-    transform: scale(1.08);
-    background: #444;
-}
+    form button {
+        width: 100%;
+        margin-top: 15px;
+        padding: 14px;
+        font-size: 18px;
+        background: #333;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
 
-/* Drapeaux langues */
-.lang-container {
-    position: fixed;
-    top: 12px;
-    right: 12px;
-}
-.lang-container img {
-    width: 35px;
-    margin-left: 6px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-.lang-container img:hover {
-    transform: scale(1.15);
-}
+    form button:hover {
+        transform: scale(1.05);
+        background: #555;
+    }
 </style>
-
-<!-- GOOGLE MAPS API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPIaWMQd6o4K8miOzLAFUU8-s3wVOehpI&libraries=places"></script>
-
 </head>
+
 <body>
 
-<!-- LANGUES -->
-<div class="lang-container">
-    <img src="https://flagsapi.com/FR/flat/32.png" onclick="setLang('fr')">
-    <img src="https://flagsapi.com/GB/flat/32.png" onclick="setLang('en')">
-    <img src="https://flagsapi.com/ES/flat/32.png" onclick="setLang('es')">
+<header>MONDRIVER</header>
+
+<!-- IMAGE -->
+<div class="image-container">
+    <img src="https://raw.githubusercontent.com/mondriver33/Mondriver33.github.io/main/fond.jpg" alt="Bordeaux">
 </div>
 
-<h1 id="title">MONDRIVER</h1>
+<!-- TARIFS & RÉSERVATION -->
+<a class="btn" href="https://mondriver33.github.io/">Tarifs & Réservation</a>
 
-<div class="container">
-    <label id="lbl_depart">Adresse de départ :</label>
-    <input id="depart" placeholder="Adresse de départ">
+<!-- APPELER -->
+<a class="btn" href="tel:0750572722">📞 Appeler un chauffeur</a>
 
-    <label id="lbl_arrivee">Adresse d'arrivée :</label>
-    <input id="arrivee" placeholder="Adresse d'arrivée">
+<!-- FORMULAIRE CONTACT -->
+<h2>Contactez-nous</h2>
 
-    <label id="lbl_date">Date :</label>
-    <input type="date" id="date">
+<form action="mailto:mondriver33@gmail.com" method="POST" enctype="text/plain">
+    <label>Nom :</label>
+    <input type="text" name="Nom" required>
 
-    <label id="lbl_heure">Heure :</label>
-    <input type="time" id="heure">
+    <label>Email :</label>
+    <input type="email" name="Email" required>
 
-    <label id="lbl_personnes">Personnes :</label>
-    <select id="personnes">
-        <option value="1" selected>1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-    </select>
+    <label>Message :</label>
+    <textarea name="Message" rows="5" required></textarea>
 
-    <label id="lbl_vehicule">Choix du véhicule :</label>
-    <select id="vehicule">
-        <option value="berline" selected>Berline</option>
-        <option value="six">Véhicule 6 places / 4 personnes avec gros bagages</option>
-        <option value="van">Van</option>
-    </select>
-
-    <label id="lbl_bagages">Bagages :</label>
-    <select id="bagages">
-        <option value="0" selected>0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-    </select>
-
-    <label id="lbl_sieges">Sièges enfants :</label>
-    <select id="sieges">
-        <option value="0" selected>0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-    </select>
-
-    <label id="lbl_animaux">Animaux :</label>
-    <select id="animaux">
-        <option value="non" selected>Non</option>
-        <option value="oui">Oui</option>
-    </select>
-
-    <label id="lbl_tel">Téléphone :</label>
-    <input id="tel" placeholder="+33 7 00 00 00 00">
-
-    <label id="lbl_email">Email :</label>
-    <input id="email" placeholder="email@example.com">
-
-    <div id="prix"></div>
-
-    <button class="btn-calcul" onclick="calculerPrix()">
-        <span id="btn_calc_text">CALCULER LE PRIX</span>
-    </button>
-
-    <button class="btn-reserver" onclick="envoyerReservation()">
-        <span id="btn_res_text">LANCER MA RÉSERVATION</span>
-    </button>
-</div>
-
-<!-- BAS DE PAGE -->
-<div>
-    <a class="bas" href="tel:+33750572722" id="btn_call">📞 APPELER UN CHAUFFEUR</a>
-    <a class="bas" href="mailto:mondriver33@gmail.com" id="btn_mail">📩 CONTACTEZ-NOUS</a>
-</div>
-<script>
-// =========================
-// GOOGLE AUTOCOMPLETE
-// =========================
-function initAutocomplete() {
-    new google.maps.places.Autocomplete(document.getElementById("depart"));
-    new google.maps.places.Autocomplete(document.getElementById("arrivee"));
-}
-google.maps.event.addDomListener(window, 'load', initAutocomplete);
-
-
-// =========================
-// DISTANCE GOOGLE API
-// =========================
-function getDistance(depart, arrivee, callback) {
-    let service = new google.maps.DistanceMatrixService();
-
-    service.getDistanceMatrix({
-        origins: [depart],
-        destinations: [arrivee],
-        travelMode: 'DRIVING'
-    }, function(response, status) {
-
-        if (status !== "OK") { callback(null); return; }
-
-        let result = response.rows[0].elements[0];
-
-        if (result.status !== "OK") { callback(null); return; }
-
-        let distanceKm = result.distance.value / 1000;
-        callback(distanceKm);
-    });
-}
-
-
-// =========================
-// CALCUL DU PRIX
-// =========================
-function calculerPrix() {
-    let depart = document.getElementById("depart").value;
-    let arrivee = document.getElementById("arrivee").value;
-    let personnes = parseInt(document.getElementById("personnes").value);
-    let vehicule = document.getElementById("vehicule").value;
-
-    if (depart === "" || arrivee === "") {
-        alert("Veuillez remplir les deux adresses.");
-        return;
-    }
-
-    // VAN automatique si 7 ou 8 personnes
-    if (personnes >= 7) {
-        vehicule = "van";
-        document.getElementById("vehicule").value = "van";
-    }
-
-    getDistance(depart, arrivee, function(distanceKm) {
-        if (distanceKm === null) {
-            alert("Impossible de calculer la distance.");
-            return;
-        }
-
-        let prix = 0;
-
-        if (distanceKm <= 5) {
-            prix = 20; // minimum toutes courses
-        } else {
-            prix = 20 + (distanceKm - 5) * 2; // 2€/km après 5km
-        }
-
-        // SUPPLÉMENTS véhicules
-        if (vehicule === "six") prix += 10;
-        if (vehicule === "van") prix += 15;
-
-        document.getElementById("prix").innerHTML =
-            "Prix estimé : " + prix.toFixed(2) + " €";
-        document.getElementById("prix").style.display = "block";
-    });
-}
-
-
-// =========================
-// ENVOI WhatsApp
-// =========================
-function envoyerReservation() {
-    let depart = document.getElementById("depart").value;
-    let arrivee = document.getElementById("arrivee").value;
-    let date = document.getElementById("date").value;
-    let heure = document.getElementById("heure").value;
-    let personnes = document.getElementById("personnes").value;
-    let vehicule = document.getElementById("vehicule").value;
-    let bagages = document.getElementById("bagages").value;
-    let sieges = document.getElementById("sieges").value;
-    let animaux = document.getElementById("animaux").value;
-    let tel = document.getElementById("tel").value;
-    let email = document.getElementById("email").value;
-
-    let prix = document.getElementById("prix").innerText;
-
-    if (!prix) {
-        alert("Veuillez d'abord calculer le prix.");
-        return;
-    }
-
-    let msg =
-        "🚗 *NOUVELLE RÉSERVATION MONDRIVER* %0A%0A" +
-        "📍 Départ : " + depart + "%0A" +
-        "🏁 Arrivée : " + arrivee + "%0A" +
-        "📅 Date : " + date + "%0A" +
-        "⏰ Heure : " + heure + "%0A" +
-        "👥 Personnes : " + personnes + "%0A" +
-        "🚘 Véhicule : " + vehicule + "%0A" +
-        "🧳 Bagages : " + bagages + "%0A" +
-        "👶 Sièges enfant : " + sieges + "%0A" +
-        "🐶 Animaux : " + animaux + "%0A" +
-        "📞 Tel : " + tel + "%0A" +
-        "📧 Email : " + email + "%0A%0A" +
-        "💰 " + prix;
-
-    window.location.href = "https://wa.me/33750572722?text=" + msg;
-}
-
-
-// =========================
-// MULTI-LANGUES
-// =========================
-const traductions = {
-    fr: {
-        title: "MONDRIVER",
-        lbl_depart: "Adresse de départ :",
-        lbl_arrivee: "Adresse d'arrivée :",
-        lbl_date: "Date :",
-        lbl_heure: "Heure :",
-        lbl_personnes: "Personnes :",
-        lbl_vehicule: "Choix du véhicule :",
-        lbl_bagages: "Bagages :",
-        lbl_sieges: "Sièges enfants :",
-        lbl_animaux: "Animaux :",
-        lbl_tel: "Téléphone :",
-        lbl_email: "Email :",
-        btn_calc_text: "CALCULER LE PRIX",
-        btn_res_text: "LANCER MA RÉSERVATION",
-        btn_call: "📞 APPELER UN CHAUFFEUR",
-        btn_mail: "📩 CONTACTEZ-NOUS"
-    },
-
-    en: {
-        title: "MONDRIVER",
-        lbl_depart: "Pickup address:",
-        lbl_arrivee: "Dropoff address:",
-        lbl_date: "Date:",
-        lbl_heure: "Time:",
-        lbl_personnes: "Passengers:",
-        lbl_vehicule: "Vehicle type:",
-        lbl_bagages: "Luggage:",
-        lbl_sieges: "Child seats:",
-        lbl_animaux: "Pets:",
-        lbl_tel: "Phone:",
-        lbl_email: "Email:",
-        btn_calc_text: "CALCULATE PRICE",
-        btn_res_text: "SEND BOOKING",
-        btn_call: "📞 CALL A DRIVER",
-        btn_mail: "📩 CONTACT US"
-    },
-
-    es: {
-        title: "MONDRIVER",
-        lbl_depart: "Dirección de salida:",
-        lbl_arrivee: "Dirección de llegada:",
-        lbl_date: "Fecha:",
-        lbl_heure: "Hora:",
-        lbl_personnes: "Personas:",
-        lbl_vehicule: "Tipo de vehículo:",
-        lbl_bagages: "Maletas:",
-        lbl_sieges: "Asientos infantiles:",
-        lbl_animaux: "Animales:",
-        lbl_tel: "Teléfono:",
-        lbl_email: "Correo electrónico:",
-        btn_calc_text: "CALCULAR PRECIO",
-        btn_res_text: "ENVIAR RESERVA",
-        btn_call: "📞 LLAMAR A UN CONDUCTOR",
-        btn_mail: "📩 CONTACTAR"
-    }
-};
-
-
-function setLang(lang) {
-    for (let key in traductions[lang]) {
-        document.getElementById(key).innerHTML =
-            traductions[lang][key];
-    }
-}
-</script>
+    <button type="submit">Envoyer</button>
+</form>
 
 </body>
 </html>
