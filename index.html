@@ -7,195 +7,205 @@
 
 <style>
 
+/* ---------- GLOBAL ---------- */
 body {
     margin: 0;
-    background: #f2f2f2;
     font-family: Arial, sans-serif;
+    background: #f2f2f2;
 }
 
-/* Bannière */
+/* ---------- HEADER ---------- */
 header {
-    background: #1a1a1a;
+    background-color: #1a1a1a;
     color: white;
     padding: 15px 20px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 }
 
-/* Logo MONDRIVER */
 header h1 {
     margin: 0;
-    font-size: 22px;
     letter-spacing: 2px;
-    text-align: center;
-    flex: 1;
+    font-size: 22px;
 }
 
-/* Menu hamburger */
-.menu-icon {
-    font-size: 26px;
+/* Langues */
+.lang {
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.lang span {
+    cursor: pointer;
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+.lang span:hover {
+    opacity: 1;
+}
+
+/* Menu */
+.menu-btn {
+    font-size: 24px;
     cursor: pointer;
     padding: 5px 10px;
 }
 
-/* Menu déroulant */
-.menu {
-    position: absolute;
-    top: 60px;
-    right: 10px;
-    background: #1a1a1a;
-    border-radius: 6px;
+.menu-content {
     display: none;
-    padding: 10px 0;
-    width: 180px;
+    position: absolute;
+    background: #1a1a1a;
+    right: 10px;
+    top: 60px;
+    padding: 10px;
+    border-radius: 6px;
 }
 
-.menu a {
+.menu-content a {
     display: block;
-    padding: 10px 20px;
     color: white;
+    padding: 8px 12px;
     text-decoration: none;
 }
 
-.menu a:hover {
+.menu-content a:hover {
     background: #333;
 }
 
-/* Image paysage */
-.hero {
+/* ---------- HERO IMAGE ---------- */
+.hero img {
     width: 100%;
-    height: auto;
+    height: 220px;        /* Taille EXACTE comme ta capture */
+    object-fit: cover;
+    object-position: center;
     display: block;
 }
 
-/* Boutons */
-.button {
-    width: 80%;
+/* ---------- BUTTONS ---------- */
+button, .btn {
+    width: 90%;
+    max-width: 500px;
     margin: 12px auto;
     padding: 14px;
-    background: #222;
+    background: #1a1a1a;
     color: white;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    display: block;
+    font-size: 15px;
     cursor: pointer;
     transition: 0.2s;
 }
 
-.button:hover {
+button:hover, .btn:hover {
     transform: scale(1.03);
-    background: #3a3a3a;
+    background: #333;
 }
 
-/* Formulaire */
+/* ---------- FORM ---------- */
 form {
-    width: 80%;
-    margin: 20px auto 40px auto;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto 60px auto;
 }
 
 input, textarea {
     width: 100%;
+    margin-bottom: 12px;
     padding: 12px;
-    margin: 8px 0;
     border-radius: 6px;
     border: 1px solid #ccc;
 }
 
-/* Bouton envoyer */
-.envoyer-btn {
-    width: 100%;
-    padding: 12px;
-    background: #000;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.envoyer-btn:hover {
-    background: #333;
-}
-
-/* Langues */
-.langs {
-    position: absolute;
-    left: 15px;
-    top: 18px;
-}
-
-.langs a {
-    color: white;
-    margin-right: 8px;
-    text-decoration: none;
+textarea {
+    height: 120px;
 }
 
 </style>
 
+<script>
+// ------- MENU -------
+function toggleMenu() {
+    const menu = document.getElementById("menu");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+
+// ------- LANGUES -------
+function setLang(l) {
+    const txt = {
+        fr: {
+            tarifs: "Tarifs & Réservation",
+            call: "Appeler un chauffeur",
+            whatsapp: "WhatsApp Chauffeur",
+            form: "Formulaire de contact"
+        },
+        en: {
+            tarifs: "Prices & Booking",
+            call: "Call a driver",
+            whatsapp: "WhatsApp Driver",
+            form: "Contact form"
+        },
+        es: {
+            tarifs: "Tarifas y Reserva",
+            call: "Llamar a un conductor",
+            whatsapp: "WhatsApp Conductor",
+            form: "Formulario de contacto"
+        }
+    };
+
+    document.getElementById("btn_tarif").innerText = txt[l].tarifs;
+    document.getElementById("btn_call").innerText = txt[l].call;
+    document.getElementById("btn_wa").innerText = txt[l].whatsapp;
+    document.getElementById("form_title").innerText = txt[l].form;
+}
+</script>
+
 </head>
 <body>
 
-<!-- LANGUES -->
-<div class="langs">
-    <a href="#" onclick="setLang('fr')">FR</a>
-    <a href="#" onclick="setLang('en')">EN</a>
-    <a href="#" onclick="setLang('es')">ES</a>
-</div>
-
-<!-- BANNIÈRE -->
+<!-- HEADER -->
 <header>
-    <h1 id="title">MONDRIVER</h1>
+    <div class="lang">
+        <span onclick="setLang('fr')">FR</span>
+        <span onclick="setLang('en')">EN</span>
+        <span onclick="setLang('es')">ES</span>
+    </div>
 
-    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <h1>MONDRIVER</h1>
+
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+    <div id="menu" class="menu-content">
+        <a href="index.html">Accueil</a>
+        <a href="#">Nos Services</a>
+        <a href="#">Nos Véhicules</a>
+    </div>
 </header>
 
-<!-- MENU -->
-<div class="menu" id="menu">
-    <a href="#">Accueil</a>
-    <a href="#">Nos services</a>
-    <a href="#">À propos de nous</a>
+<!-- HERO IMAGE -->
+<div class="hero">
+    <img src="fond.jpg" alt="Bordeaux">
 </div>
 
-<!-- IMAGE PRINCIPALE -->
-<img src="fond.jpg" class="hero">
+<!-- BUTTONS -->
+<button id="btn_tarif" onclick="window.location='reservation.html'">Tarifs & Réservation</button>
+<button id="btn_call" onclick="window.location='tel:0750572722'">Appeler un chauffeur</button>
+<button id="btn_wa" onclick="window.location='https://wa.me/33750572722'">WhatsApp Chauffeur</button>
 
-<!-- BOUTONS -->
-<div class="button" onclick="location.href='reservation.html'">Tarifs & Réservation</div>
-<div class="button" onclick="location.href='tel:0750572722'">Appeler un chauffeur</div>
-<div class="button" onclick="location.href='https://wa.me/33750572722'">WhatsApp Chauffeur</div>
+<h3 id="form_title" style="text-align:center; margin-top:20px;">Formulaire de contact</h3>
 
-<!-- FORMULAIRE -->
-<h3 style="text-align:center;">Formulaire de contact</h3>
-
+<!-- FORM -->
 <form action="mailto:mondriver33@gmail.com" method="POST" enctype="text/plain">
     <input type="text" name="nom" placeholder="Votre nom" required>
-    <input type="text" name="telephone" placeholder="Votre téléphone" required>
     <input type="email" name="email" placeholder="Votre email" required>
-    <textarea name="message" placeholder="Votre message" rows="5" required></textarea>
+    <input type="text" name="phone" placeholder="Votre téléphone">
+    <textarea name="message" placeholder="Votre message"></textarea>
 
-    <button type="submit" class="envoyer-btn">Envoyer</button>
+    <button type="submit" class="btn">Envoyer</button>
 </form>
-
-<script>
-function toggleMenu() {
-    let m = document.getElementById("menu");
-    m.style.display = (m.style.display === "block") ? "none" : "block";
-}
-
-function setLang(lang) {
-    if (lang === "fr") {
-        document.getElementById("title").innerText = "MONDRIVER";
-    }
-    if (lang === "en") {
-        document.getElementById("title").innerText = "MONDRIVER";
-    }
-    if (lang === "es") {
-        document.getElementById("title").innerText = "MONDRIVER";
-    }
-}
-</script>
 
 </body>
 </html>
