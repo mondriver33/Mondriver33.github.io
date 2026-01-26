@@ -3,123 +3,175 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MONDRIVER</title>
+<title>MONDRIVER - Accueil</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #fff;
-        text-align: center;
-    }
+body {
+    margin: 0;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: white;
+    color: #333;
+}
 
-    /* EN-TÊTE */
-    header {
-        background: #333;
-        color: white;
-        padding: 18px 0;
-        font-size: 26px;
-        letter-spacing: 2px;
-        font-weight: bold;
-    }
+/* HEADER */
+header {
+    background: #1a1a1a;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    /* IMAGE */
-    .image-container {
-        width: 100%;
-        height: 220px;
-        overflow: hidden;
-    }
+header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
 
-    .image-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+/* MENU DÉROULANT */
+.menu-btn {
+    font-size: 26px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
 
-    /* BOUTONS */
-    .btn {
-        display: block;
-        width: 80%;
-        margin: 20px auto;
-        padding: 15px;
-        background: #444;
-        color: white;
-        border-radius: 10px;
-        font-size: 20px;
-        text-decoration: none;
-        transition: 0.3s;
-    }
+.menu {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 15px;
+    background: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
+}
 
-    .btn:hover {
-        transform: scale(1.05);
-        background: #666;
-    }
+.menu a {
+    display: block;
+    padding: 12px 20px;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid #333;
+}
 
-    /* FORMULAIRE DE CONTACT */
-    form {
-        width: 80%;
-        margin: 25px auto;
-        text-align: left;
-    }
+.menu a:hover {
+    background: #333;
+}
 
-    form input, form textarea {
-        width: 100%;
-        padding: 12px;
-        margin-top: 10px;
-        border: 1px solid #bbb;
-        border-radius: 8px;
-        font-size: 16px;
-    }
+.show {
+    display: block;
+}
 
-    form button {
-        width: 100%;
-        margin-top: 15px;
-        padding: 14px;
-        font-size: 18px;
-        background: #333;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: 0.3s;
-    }
+/* IMAGE CENTRALE */
+.image {
+    width: 100%;
+    height: 220px;
+    background: #ccc;
+    background-size: cover;
+    background-position: center;
+}
 
-    form button:hover {
-        transform: scale(1.05);
-        background: #555;
-    }
+/* BOUTONS */
+.btn {
+    width: 85%;
+    margin: 15px auto;
+    padding: 15px;
+    background: #444;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    background: #5a5a5a;
+}
+
+/* FORMULAIRE */
+form {
+    width: 85%;
+    margin: 30px auto;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+textarea {
+    height: 120px;
+}
+
+/* BOUTON ENVOYER */
+.send {
+    background: #444;
+    color: white;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 18px;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+}
+
+.send:hover {
+    transform: scale(1.05);
+    background: #5a5a5a;
+}
 </style>
-</head>
 
+<script>
+function toggleMenu() {
+    document.getElementById("menu").classList.toggle("show");
+}
+</script>
+
+</head>
 <body>
 
-<header>MONDRIVER</header>
+<header>
+    <h1>MONDRIVER</h1>
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+</header>
 
-<!-- IMAGE -->
-<div class="image-container">
-    <img src="https://raw.githubusercontent.com/mondriver33/Mondriver33.github.io/main/fond.jpg" alt="Bordeaux">
+<div id="menu" class="menu">
+    <a href="#">Accueil</a>
+    <a href="#">Nos services</a>
+    <a href="#">Nos véhicules</a>
 </div>
 
-<!-- TARIFS & RÉSERVATION -->
-<a class="btn" href="https://mondriver33.github.io/">Tarifs & Réservation</a>
+<!-- IMAGE PAYSAGE → REMPLACE 'image.jpg' PAR TON IMAGE -->
+<div class="image" style="background-image:url('image.jpg');"></div>
 
-<!-- APPELER -->
-<a class="btn" href="tel:0750572722">📞 Appeler un chauffeur</a>
+<!-- BOUTONS -->
+<div class="btn" onclick="window.location.href='https://mondriver33.github.io/'">
+    ⭐ Tarifs & Réservation
+</div>
+
+<div class="btn" onclick="window.location.href='tel:+33750572722'">
+    📞 Appeler un chauffeur
+</div>
+
+<div class="btn" onclick="window.location.href='https://wa.me/33750572722'">
+    🟢 WhatsApp Chauffeur
+</div>
 
 <!-- FORMULAIRE CONTACT -->
-<h2>Contactez-nous</h2>
-
 <form action="mailto:mondriver33@gmail.com" method="POST" enctype="text/plain">
-    <label>Nom :</label>
-    <input type="text" name="Nom" required>
-
-    <label>Email :</label>
-    <input type="email" name="Email" required>
-
-    <label>Message :</label>
-    <textarea name="Message" rows="5" required></textarea>
-
-    <button type="submit">Envoyer</button>
+    <input type="text" name="Nom" placeholder="Votre nom" required>
+    <input type="tel" name="Téléphone" placeholder="Votre téléphone" required>
+    <input type="email" name="Email" placeholder="Votre email" required>
+    <textarea name="Message" placeholder="Votre message..." required></textarea>
+    <button class="send" type="submit">Envoyer</button>
 </form>
 
 </body>
