@@ -1,285 +1,211 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MONDRIVER – Tarifs & Réservations</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MONDRIVER</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
-        background: #ffffff;
-        color: #000;
-        text-align: center;
-    }
 
-    /* HEADER APPLE */
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 18px 25px;
-        background: #f5f5f7;
-        border-bottom: 1px solid #ddd;
-    }
+/* ---------- GLOBAL ---------- */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+}
 
-    header h1 {
-        margin: 0;
-        font-size: 26px;
-        font-weight: 700;
-        letter-spacing: 2px;
-    }
+/* ---------- HEADER ---------- */
+header {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    /* LANGUES */
-    .langues img {
-        width: 28px;
-        cursor: pointer;
-        margin-right: 8px;
-        border-radius: 4px;
-        transition: transform 0.2s;
-    }
-    .langues img:hover {
-        transform: scale(1.15);
-    }
+header h1 {
+    margin: 0;
+    letter-spacing: 2px;
+    font-size: 22px;
+}
 
-    /* FORM CONTAINER */
-    .container {
-        margin: 25px auto;
-        width: 92%;
-        max-width: 480px;
-        padding: 22px;
-        border-radius: 18px;
-        background: rgba(0,0,0,0.05);
-        box-shadow: 0 0 14px rgba(0,0,0,0.1);
-    }
+/* Langues */
+.lang {
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+}
 
-    label {
-        display: block;
-        margin: 12px 0 5px;
-        font-weight: 600;
-        text-align: left;
-    }
+.lang span {
+    cursor: pointer;
+    font-size: 13px;
+    opacity: 0.8;
+}
 
-    input, select {
-        width: 100%;
-        padding: 14px;
-        border-radius: 10px;
-        border: 1px solid #ccc;
-        font-size: 16px;
-        background: #fff;
-        margin-bottom: 14px;
-    }
+.lang span:hover {
+    opacity: 1;
+}
 
-    select {
-        cursor: pointer;
-    }
+/* Menu */
+.menu-btn {
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
 
-    /* PRIX */
-    #prix {
-        font-size: 26px;
-        margin: 18px 0;
-        font-weight: 700;
-        display: none;
-    }
+.menu-content {
+    display: none;
+    position: absolute;
+    background: #1a1a1a;
+    right: 10px;
+    top: 60px;
+    padding: 10px;
+    border-radius: 6px;
+}
 
-    /* BUTTONS */
-    button, .btn {
-        width: 100%;
-        padding: 16px;
-        border-radius: 10px;
-        border: none;
-        font-size: 18px;
-        margin-top: 12px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: transform .2s;
-    }
+.menu-content a {
+    display: block;
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+}
 
-    button:hover, .btn:hover {
-        transform: scale(1.05);
-    }
+.menu-content a:hover {
+    background: #333;
+}
 
-    .btn-calc {
-        background: #007bff;
-        color: #fff;
-    }
+/* ---------- HERO IMAGE ---------- */
+.hero img {
+    width: 100%;
+    height: 220px;        /* Taille EXACTE comme ta capture */
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
 
-    .btn-whatsapp {
-        background: #25D366;
-        color: #fff;
-    }
+/* ---------- BUTTONS ---------- */
+button, .btn {
+    width: 90%;
+    max-width: 500px;
+    margin: 12px auto;
+    padding: 14px;
+    background: #1a1a1a;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    display: block;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
 
-    .btn-mail {
-        background: #000;
-        color: #fff;
-    }
+button:hover, .btn:hover {
+    transform: scale(1.03);
+    background: #333;
+}
 
-    /* FOOTER LINKS */
-    .footer-link {
-        display: inline-block;
-        background: #333;
-        color: white;
-        padding: 14px 18px;
-        margin: 10px 8px;
-        border-radius: 10px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: transform .2s;
-    }
-    .footer-link:hover {
-        transform: scale(1.05);
-    }
+/* ---------- FORM ---------- */
+form {
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto 60px auto;
+}
+
+input, textarea {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+textarea {
+    height: 120px;
+}
+
 </style>
 
-<!-- GOOGLE MAPS API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_API_KEY&libraries=places"></script>
+<script>
+// ------- MENU -------
+function toggleMenu() {
+    const menu = document.getElementById("menu");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+
+// ------- LANGUES -------
+function setLang(l) {
+    const txt = {
+        fr: {
+            tarifs: "Tarifs & Réservation",
+            call: "Appeler un chauffeur",
+            whatsapp: "WhatsApp Chauffeur",
+            form: "Formulaire de contact"
+        },
+        en: {
+            tarifs: "Prices & Booking",
+            call: "Call a driver",
+            whatsapp: "WhatsApp Driver",
+            form: "Contact form"
+        },
+        es: {
+            tarifs: "Tarifas y Reserva",
+            call: "Llamar a un conductor",
+            whatsapp: "WhatsApp Conductor",
+            form: "Formulario de contacto"
+        }
+    };
+
+    document.getElementById("btn_tarif").innerText = txt[l].tarifs;
+    document.getElementById("btn_call").innerText = txt[l].call;
+    document.getElementById("btn_wa").innerText = txt[l].whatsapp;
+    document.getElementById("form_title").innerText = txt[l].form;
+}
+</script>
 
 </head>
 <body>
 
+<!-- HEADER -->
 <header>
-    <div class="langues">
-        <img src="https://flagcdn.com/w20/fr.png">
-        <img src="https://flagcdn.com/w20/gb.png">
-        <img src="https://flagcdn.com/w20/es.png">
+    <div class="lang">
+        <span onclick="setLang('fr')">FR</span>
+        <span onclick="setLang('en')">EN</span>
+        <span onclick="setLang('es')">ES</span>
     </div>
 
     <h1>MONDRIVER</h1>
 
-    <div></div>
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+    <div id="menu" class="menu-content">
+        <a href="index.html">Accueil</a>
+        <a href="#">Nos Services</a>
+        <a href="#">Nos Véhicules</a>
+    </div>
 </header>
 
-<div class="container">
-
-    <label>Adresse de départ :</label>
-    <input id="depart" placeholder="Adresse de départ">
-
-    <label>Adresse d'arrivée :</label>
-    <input id="arrivee" placeholder="Adresse d'arrivée">
-
-    <label>Date :</label>
-    <input type="date" id="date">
-
-    <label>Heure :</label>
-    <input type="time" id="heure">
-
-    <label>Nombre de personnes :</label>
-    <input type="number" id="personnes" min="1" max="8" value="1">
-
-    <label>Choix du véhicule :</label>
-    <select id="vehicule">
-        <option value="berline">Berline</option>
-        <option value="v6">Véhicule 6 places / 4 gros bagages</option>
-        <option value="van">Van</option>
-    </select>
-
-    <label>Bagages :</label>
-    <input type="number" id="bagages" min="0" value="0">
-
-    <label>Siège enfant :</label>
-    <input type="number" id="siege" min="0" max="2" value="0">
-
-    <label>Animaux :</label>
-    <select id="animaux">
-        <option value="non">Non</option>
-        <option value="oui">Oui</option>
-    </select>
-
-    <label>Téléphone :</label>
-    <input id="tel" placeholder="Votre numéro">
-
-    <div id="prix"></div>
-
-    <button class="btn-calc" onclick="calculerPrix()">Calculer le prix</button>
-
-    <a id="wa" class="btn btn-whatsapp" href="#">Envoyer la réservation via WhatsApp</a>
-
-    <a id="mail" class="btn btn-mail" href="#">Envoyer la réservation par mail</a>
-
+<!-- HERO IMAGE -->
+<div class="hero">
+    <img src="fond.jpg" alt="Bordeaux">
 </div>
 
-<div style="margin-top:25px;">
-    <a class="footer-link" href="tel:+33750572722">📞 Appeler un chauffeur</a>
-</div>
+<!-- BUTTONS -->
+<button id="btn_tarif" onclick="window.location='reservation.html'">Tarifs & Réservation</button>
+<button id="btn_call" onclick="window.location='tel:0750572722'">Appeler un chauffeur</button>
+<button id="btn_wa" onclick="window.location='https://wa.me/33750572722'">WhatsApp Chauffeur</button>
 
-<script>
-/* AUTOCOMPLETE */
-function initAutocomplete(){
-    new google.maps.places.Autocomplete(document.getElementById("depart"));
-    new google.maps.places.Autocomplete(document.getElementById("arrivee"));
-}
-google.maps.event.addDomListener(window,"load",initAutocomplete);
+<h3 id="form_title" style="text-align:center; margin-top:20px;">Formulaire de contact</h3>
 
-/* CALCUL PRIX */
-function calculerPrix() {
-    let dep = document.getElementById("depart").value;
-    let arr = document.getElementById("arrivee").value;
+<!-- FORM -->
+<form action="mailto:mondriver33@gmail.com" method="POST" enctype="text/plain">
+    <input type="text" name="nom" placeholder="Votre nom" required>
+    <input type="email" name="email" placeholder="Votre email" required>
+    <input type="text" name="phone" placeholder="Votre téléphone">
+    <textarea name="message" placeholder="Votre message"></textarea>
 
-    if(!dep || !arr){
-        alert("Veuillez saisir les deux adresses.");
-        return;
-    }
-
-    let personnes = parseInt(document.getElementById("personnes").value);
-    let vehicule = document.getElementById("vehicule");
-
-    // AUTO-SELECTION
-    if(personnes >= 5 && personnes <= 6){
-        vehicule.value = "v6";
-    }
-    if(personnes >= 7){
-        vehicule.value = "van";
-    }
-
-    const service = new google.maps.DistanceMatrixService();
-    service.getDistanceMatrix({
-        origins:[dep],
-        destinations:[arr],
-        travelMode:"DRIVING"
-    }, function(resp,status){
-        if(status!=="OK"){
-            alert("Erreur API distance.");
-            return;
-        }
-
-        let distText = resp.rows[0].elements[0].distance.text;
-        let distanceKm = parseFloat(distText.replace(",","."));
-
-        let prix;
-
-        if(distanceKm <= 5){
-            prix = 20;
-        } else {
-            prix = 20 + ((distanceKm - 5) * 2);
-        }
-
-        if(vehicule.value==="v6") prix += 10;
-        if(vehicule.value==="van") prix += 15;
-
-        let final = prix.toFixed(2);
-
-        document.getElementById("prix").innerHTML = "Prix estimé : " + final + " €";
-        document.getElementById("prix").style.display = "block";
-
-        // WhatsApp message
-        let msg = encodeURIComponent(
-            "Nouvelle demande de réservation :\n" +
-            "- Départ : " + dep + "\n" +
-            "- Arrivée : " + arr + "\n" +
-            "- Distance : " + distanceKm + " km\n" +
-            "- Véhicule : " + vehicule.value + "\n" +
-            "- Prix estimé : " + final + " €"
-        );
-
-        document.getElementById("wa").href =
-            "https://wa.me/33750572722?text=" + msg;
-
-        document.getElementById("mail").href =
-            "mailto:mondriver33@gmail.com?subject=Réservation&body=" + msg;
-    });
-}
-</script>
+    <button type="submit" class="btn">Envoyer</button>
+</form>
 
 </body>
 </html>
